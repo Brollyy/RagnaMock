@@ -126,7 +126,7 @@ namespace Ragnamock
         private void WsClient_ServerConnected(object? sender, EventArgs e)
         {
             // For some reason Ragnarock sends this as soon as they connect.
-            wsClient?.SendAsync("{{\"event\":\"ragnarockInitConnection\",\"data\":\"init connection\"}}");
+            wsClient?.SendAsync($"{{\"event\":\"ragnarockInitConnection\",\"data\":\"init connection\"}}");
         }
 
         private void WsClient_ServerDisconnected(object? sender, EventArgs e)
@@ -337,6 +337,7 @@ namespace Ragnamock
         }
         #endregion
 
+        #region Score
         private void ToggleScore()
         {
             tbScoreDistance.Enabled = !tbScoreDistance.Enabled;
@@ -437,5 +438,6 @@ namespace Ragnamock
             var hitPercentage = (nudScoreHit.Value + nudScoreMiss.Value > 0) ? (int)(100 * nudScoreHit.Value / (nudScoreHit.Value + nudScoreMiss.Value)) : 0;
             wsClient?.SendAsync($"{{\"event\":\"Score\",\"data\":{{\"stats\":{{\"PercentageOfPerfects\":{nudScorePerfectPercent.Value},\"ComboBlue\":{nudScoreComboBlue.Value},\"ComboYellow\":{nudScoreComboYellow.Value},\"Missed\":{nudScoreMiss.Value},\"Hit\":{nudScoreHit.Value},\"HitPercentage\":{hitPercentage},\"HitDeltaAverage\":{nudScoreDelta.Value}}},\"extra\":{{}},\"distance\":\"{((double)trackScoreDistance.Value / 100).ToString(CultureInfo.InvariantCulture)}\"}}}}");
         }
+        #endregion
     }
 }
