@@ -435,8 +435,8 @@ namespace Ragnamock
 
         private void btnScoreSend_Click(object sender, EventArgs e)
         {
-            var hitPercentage = (nudScoreHit.Value + nudScoreMiss.Value > 0) ? (int)(100 * nudScoreHit.Value / (nudScoreHit.Value + nudScoreMiss.Value)) : 0;
-            wsClient?.SendAsync($"{{\"event\":\"Score\",\"data\":{{\"stats\":{{\"PercentageOfPerfects\":{nudScorePerfectPercent.Value},\"ComboBlue\":{nudScoreComboBlue.Value},\"ComboYellow\":{nudScoreComboYellow.Value},\"Missed\":{nudScoreMiss.Value},\"Hit\":{nudScoreHit.Value},\"HitPercentage\":{hitPercentage},\"HitDeltaAverage\":{nudScoreDelta.Value}}},\"extra\":{{}},\"distance\":\"{((double)trackScoreDistance.Value / 100).ToString(CultureInfo.InvariantCulture)}\"}}}}");
+            var hitPercentage = (nudScoreHit.Value + nudScoreMiss.Value > 0) ? (int)decimal.Round(100 * nudScoreHit.Value / (nudScoreHit.Value + nudScoreMiss.Value)) : 0;
+            wsClient?.SendAsync($"{{\"event\":\"Score\",\"data\":{{\"stats\":{{\"PercentageOfPerfects\":{(int)decimal.Round(nudScorePerfectPercent.Value)},\"ComboBlue\":{(int)nudScoreComboBlue.Value},\"ComboYellow\":{(int)nudScoreComboYellow.Value},\"Missed\":{(int)nudScoreMiss.Value},\"Hit\":{(int)nudScoreHit.Value},\"HitPercentage\":{hitPercentage},\"HitDeltaAverage\":{(int)decimal.Round(nudScoreDelta.Value)}}},\"extra\":{{}},\"distance\":\"{((double)trackScoreDistance.Value / 100).ToString(CultureInfo.InvariantCulture)}\"}}}}");
         }
         #endregion
     }
